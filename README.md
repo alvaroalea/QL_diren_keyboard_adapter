@@ -8,10 +8,31 @@ This is not a functional item, it's only a exercice of reverse engineering to re
 
 This project was done using freely available pictures of the interface found on internet.
 
-There area things that do not match on the pictures, the conection of GND and Vcc of the pictures do not match the datasheet of the chip.
-in special pin 4,5 and 9 seen to be interchanges. and pin 1 seen to be conected to +5V instead of GND.
+Schematic shall be correct, and pins are wired and the schematic has sense.
 
 Also this project is completely useless without the firmware of the microcontroller.
+
+## Firmware
+
+This is what is expect on the firmware, is only my guest:
+
+Firmware configure port B as input and assing a interrupt to the port
+
+Normally only 1 of the lines as tied to 0V at the same time, to indicate the row of keyboard to read.
+
+Firmware configure port C as input to have high impedance.
+
+In the main loop a variable store the actual key pressed and the control keys.
+
+When a interrupt is detected, a look-up table determine if the key pressed (if any) is related to the port B line that trigged the interrupt.
+If related, a second look-up table determine the port C line that need to be activate.
+then reconfigure the KBO line as output and tie to 0V.
+
+As soon as the Port B line go high, reconfigure again the KBO line as input.
+
+
+In the main loop of the microcontroller, comunication with keyboard is done, and actual key is stored in a variable.
+
 
 ## Comparative
 ![My Components Side ](PCB_compo.jpg)
